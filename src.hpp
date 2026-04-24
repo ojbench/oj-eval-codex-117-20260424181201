@@ -61,7 +61,7 @@ public:
     evict_id = npos;
     for (std::size_t i = 0; i < max_size_; ++i) if (occupied_[i] && nodes_[i].PageId() == page_id) { nodes_[i].RecordVisit(++time_); return; }
     if (size_ < max_size_) {
-      for (std::size_t i = 0; i < max_size_; ++i) if (!occupied_[i]) { occupied_[i] = true; nodes_[i].SetPageId(page_id); nodes_[i].RecordVisit(++time_); ++size_; return; }
+      for (std::size_t i = 0; i < max_size_; ++i) if (!occupied_[i]) { occupied_[i] = true; nodes_[i] = PageNode(page_id); nodes_[i].RecordVisit(++time_); ++size_; return; }
       return;
     }
     std::size_t victim = TryEvict(policy);
